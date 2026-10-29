@@ -146,6 +146,7 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--warn);outline-o
 .chip b{display:block;font-size:22px;line-height:1.25;font-weight:400;padding:2px 0}
 .chip[aria-pressed="true"] b{color:inherit}
 .chip b .em{font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
+#oth{-webkit-appearance:none;appearance:none}#oth::-webkit-search-cancel-button,#oth::-webkit-search-decoration{-webkit-appearance:none;display:none}
 .cat .em{font-size:15px;font-family:'Apple Color Emoji','Segoe UI Emoji','Noto Color Emoji',sans-serif}
 #balc{cursor:pointer}
 #left::after{content:" \270E";font-size:12px;font-weight:400;color:var(--mute)}
@@ -179,7 +180,7 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
     <div class="entry" id="adjp" hidden>
       <div class="note" style="margin:0">Set balance to what you actually have</div>
       <div class="row">
-        <input id="adjv" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Actual balance" aria-label="Actual balance in KES">
+        <input id="adjv" name="entry-balance" data-lpignore="true" data-1p-ignore data-form-type="other" aria-autocomplete="none" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Actual balance" aria-label="Actual balance in KES">
         <button class="add" id="adjs">Set</button>
         <button class="link" id="adjc" style="padding:0 6px">Cancel</button>
       </div>
@@ -189,9 +190,9 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
       <div class="seg" id="seg"><button data-m="e" aria-pressed="true">Spent</button><button data-m="i" aria-pressed="false">Income</button></div>
       <div class="chips" id="chips"></div>
       <div class="hint" id="hint" hidden></div>
-      <input id="oth" autocomplete="off" enterkeyhint="done" type="text" placeholder="What was it? (e.g. Rent)" aria-label="Other" hidden>
+      <input id="oth" name="entry-label" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" aria-autocomplete="none" inputmode="text" enterkeyhint="done" type="search" placeholder="What was it? (e.g. Rent)" aria-label="Other" hidden>
       <div class="row">
-        <input id="amt" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore enterkeyhint="done" placeholder="Amount" aria-label="Amount in KES">
+        <input id="amt" name="entry-amount" data-form-type="other" aria-autocomplete="none" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore enterkeyhint="done" placeholder="Amount" aria-label="Amount in KES">
         <label class="dp" title="Change date"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span id="dpt">Today</span><input id="date" type="date" aria-label="Date"></label>
         <button class="add" id="add">Save</button>
       </div>
