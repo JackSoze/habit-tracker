@@ -171,6 +171,20 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sumbg:linear-gradient(135deg,color-mix(in srgb,var(--acc) 12%,var(--card)),var(--card));--sumbd:color-mix(in srgb,var(--acc) 35%,var(--line));--entbd:color-mix(in srgb,var(--acc) 25%,var(--line));--dcbd:color-mix(in srgb,var(--acc) 18%,var(--line));--shadow:none}}
 :root[data-theme="dark"]{--sumbg:linear-gradient(135deg,color-mix(in srgb,var(--acc) 12%,var(--card)),var(--card));--sumbd:color-mix(in srgb,var(--acc) 35%,var(--line));--entbd:color-mix(in srgb,var(--acc) 25%,var(--line));--dcbd:color-mix(in srgb,var(--acc) 18%,var(--line));--shadow:none}
 body{-webkit-font-smoothing:antialiased}
+/* ---- Icon outline (light mode only) ---- */
+:root{--icb:color-mix(in srgb,var(--acc) 40%,var(--line))}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--icb:transparent}}
+:root[data-theme="dark"]{--icb:transparent}
+.chip b{width:34px;height:34px;margin:0 auto 2px;padding:0;border-radius:50%;display:grid;place-items:center;font-size:19px;line-height:1;border:1.5px solid var(--icb);background:var(--soft)}
+.chip[aria-pressed="true"] b{border-color:color-mix(in srgb,var(--acc-ink) 55%,transparent);background:color-mix(in srgb,var(--acc-ink) 18%,transparent)}
+.chip[data-c="Other"] b,.chip[data-c="Other"][aria-pressed="true"] b{border-color:transparent;background:none}
+/* ---- Bottom tab bar ---- */
+.top{justify-content:center}
+.top #views{position:fixed;left:10px;right:10px;bottom:calc(8px + env(safe-area-inset-bottom,0px));z-index:20;max-width:300px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;padding:3px;gap:3px;border-radius:12px;background:var(--card);border:1px solid var(--line);box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.top #views button{padding:6px 6px;font-size:13px;border-radius:9px}
+.top #views button[aria-pressed="true"]{background:var(--acc);color:var(--acc-ink);box-shadow:none}
+main{padding-bottom:64px}
+.toast{bottom:calc(52px + env(safe-area-inset-bottom,0px))}
 .seg{background:var(--track);border-color:transparent}
 .entry .seg{background:var(--track)}
 .seg button{color:var(--mute);transition:background .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease)}
