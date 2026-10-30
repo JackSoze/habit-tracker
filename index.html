@@ -151,6 +151,10 @@ button:focus-visible,input:focus-visible{outline:2px solid var(--warn);outline-o
 #balc{cursor:pointer}
 #left::after{content:" \270E";font-size:12px;font-weight:400;color:var(--mute)}
 #adjv{flex:1;font-weight:700}
+.fld{display:block;min-height:40px;padding:9px 8px;border:1px solid var(--line);border-radius:8px;background:var(--bg);color:var(--ink);font:inherit;font-size:16px;line-height:1.35;min-width:0;white-space:pre;overflow:hidden;cursor:text;-webkit-user-select:text;user-select:text}
+.fld:focus{outline:2px solid var(--warn);outline-offset:1px}
+.fld:empty::before{content:attr(data-ph);color:var(--mute);opacity:.75;pointer-events:none;font-weight:400}
+#amt.fld{padding:8px;font-weight:700}
 #cf button{background:none;border:0;color:var(--acc);font:inherit;font-weight:600;text-decoration:underline;cursor:pointer;padding:0}
 body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
 .sum{background:linear-gradient(135deg,color-mix(in srgb,var(--acc) 12%,var(--card)),var(--card));border-color:color-mix(in srgb,var(--acc) 35%,var(--line))}
@@ -161,6 +165,43 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
 .chip[aria-pressed="true"]{box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 22%,transparent)}
 #amt{background:var(--soft)}
 .dc{border-color:color-mix(in srgb,var(--acc) 18%,var(--line))}
+/* ---- Refined look (colors, type, motion) on the original layout ---- */
+:root{--bg:#f5f2eb;--card:#fffefb;--ink:#1d1c19;--mute:#7b766b;--line:#e8e3d8;--acc:#25684f;--acc-ink:#fff;--warn:#b7791f;--bad:#c2432f;--track:#eee9de;--in:#25684f;--soft:#faf7f0;--bgimg:none;
+--sumbg:var(--card);--sumbd:var(--line);--entbd:var(--line);--dcbd:var(--line);--shadow:0 1px 2px rgba(60,45,20,.05),0 4px 14px rgba(60,45,20,.04);--ease:cubic-bezier(.2,.7,.2,1)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--sumbg:linear-gradient(135deg,color-mix(in srgb,var(--acc) 12%,var(--card)),var(--card));--sumbd:color-mix(in srgb,var(--acc) 35%,var(--line));--entbd:color-mix(in srgb,var(--acc) 25%,var(--line));--dcbd:color-mix(in srgb,var(--acc) 18%,var(--line));--shadow:none}}
+:root[data-theme="dark"]{--sumbg:linear-gradient(135deg,color-mix(in srgb,var(--acc) 12%,var(--card)),var(--card));--sumbd:color-mix(in srgb,var(--acc) 35%,var(--line));--entbd:color-mix(in srgb,var(--acc) 25%,var(--line));--dcbd:color-mix(in srgb,var(--acc) 18%,var(--line));--shadow:none}
+body{-webkit-font-smoothing:antialiased}
+.seg{background:var(--track);border-color:transparent}
+.entry .seg{background:var(--track)}
+.seg button{color:var(--mute);transition:background .2s var(--ease),color .2s var(--ease),box-shadow .2s var(--ease)}
+.seg button[aria-pressed="true"]{background:var(--card);color:var(--ink);box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.sum{background:var(--sumbg);border-color:var(--sumbd);box-shadow:var(--shadow)}
+.entry{background:var(--card);border-color:var(--entbd);box-shadow:var(--shadow)}
+.entry.in{border-color:var(--acc)}
+.chip{background:var(--soft);border-color:var(--line);transition:transform .15s var(--ease),background .2s var(--ease),border-color .2s var(--ease),color .2s var(--ease)}
+.chip:active{transform:scale(.95)}
+.chip[aria-pressed="true"]{background:var(--acc);border-color:var(--acc);color:var(--acc-ink);box-shadow:none}
+.fld,#adjv{border-color:var(--line);background:var(--soft);transition:border-color .2s var(--ease),box-shadow .2s var(--ease),background .2s var(--ease)}
+.fld:focus,input:focus,input:focus-visible{outline:none;border-color:var(--acc);box-shadow:0 0 0 3px color-mix(in srgb,var(--acc) 16%,transparent);background:var(--card)}
+button:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+.dp{background:var(--soft);transition:background .2s var(--ease)}
+.add{transition:transform .15s var(--ease),filter .2s var(--ease)}
+.add:active{transform:scale(.96);filter:brightness(.94)}
+.dc{background:var(--card);border-color:var(--dcbd);box-shadow:var(--shadow)}
+.dc .r{transition:background .15s var(--ease)}
+.dc .r:active{background:var(--soft)}
+.r button{opacity:.7;transition:opacity .15s,color .15s}
+.r button:active{opacity:1;color:var(--bad)}
+.stt>div,.an{box-shadow:var(--shadow);border-color:var(--line)}
+.toast{box-shadow:0 8px 24px rgba(0,0,0,.18);animation:toastin .3s var(--ease) both}
+@keyframes toastin{from{opacity:0;transform:translate(-50%,14px)}to{opacity:1;transform:translate(-50%,0)}}
+@keyframes fadeup{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+@keyframes grow{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+#vTrack,#vAn,#vTrack>.sum,#vTrack>.entry{animation:fadeup .35s var(--ease) both}
+.bars i,.wk i,.tr .p i{transform-origin:bottom;animation:grow .55s var(--ease) both}
+.track i{transform-origin:left;animation:growx .65s var(--ease) both}
+@media (prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
 </style>
 </head>
 <body>
@@ -180,7 +221,7 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
     <div class="entry" id="adjp" hidden>
       <div class="note" style="margin:0">Set balance to what you actually have</div>
       <div class="row">
-        <input id="adjv" name="entry-balance" data-lpignore="true" data-1p-ignore data-form-type="other" aria-autocomplete="none" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" placeholder="Actual balance" aria-label="Actual balance in KES">
+        <div id="adjv" class="fld" contenteditable="plaintext-only" role="textbox" aria-multiline="false" inputmode="decimal" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" data-ph="Actual balance" aria-label="Actual balance in KES"></div>
         <button class="add" id="adjs">Set</button>
         <button class="link" id="adjc" style="padding:0 6px">Cancel</button>
       </div>
@@ -190,9 +231,9 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
       <div class="seg" id="seg"><button data-m="e" aria-pressed="true">Spent</button><button data-m="i" aria-pressed="false">Income</button></div>
       <div class="chips" id="chips"></div>
       <div class="hint" id="hint" hidden></div>
-      <input id="oth" name="entry-label" autocomplete="off" autocorrect="off" autocapitalize="sentences" spellcheck="false" data-lpignore="true" data-1p-ignore data-form-type="other" aria-autocomplete="none" inputmode="text" enterkeyhint="done" type="search" placeholder="What was it? (e.g. Rent)" aria-label="Other" hidden>
+      <div id="oth" class="fld" contenteditable="plaintext-only" role="textbox" aria-multiline="false" inputmode="text" autocorrect="off" autocapitalize="sentences" spellcheck="false" enterkeyhint="done" data-ph="What was it? (e.g. Rent)" aria-label="Other" hidden></div>
       <div class="row">
-        <input id="amt" name="entry-amount" data-form-type="other" aria-autocomplete="none" type="text" inputmode="decimal" autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false" data-lpignore="true" data-1p-ignore enterkeyhint="done" placeholder="Amount" aria-label="Amount in KES">
+        <div id="amt" class="fld" contenteditable="plaintext-only" role="textbox" aria-multiline="false" inputmode="decimal" autocorrect="off" autocapitalize="off" spellcheck="false" enterkeyhint="done" data-ph="Amount" aria-label="Amount in KES"></div>
         <label class="dp" title="Change date"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg><span id="dpt">Today</span><input id="date" type="date" aria-label="Date"></label>
         <button class="add" id="add">Save</button>
       </div>
@@ -203,7 +244,6 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
       <div class="seg" id="rng"><button data-r="t" aria-pressed="false">Today</button><button data-r="w" aria-pressed="false">Week</button><button data-r="m" aria-pressed="true">Month</button></div>
     </div>
     <div class="led" id="list"></div>
-    <button class="link" id="seed" hidden>Load my September entries from Monthly_Budget</button>
     <div class="note" style="text-align:center;margin-top:6px"><button class="link" id="exp">Export backup</button> · <button class="link" id="imp">Import backup</button><input type="file" id="impf" accept=".csv,text/csv,.json,application/json" hidden></div>
   </div>
 
@@ -223,7 +263,7 @@ body{background:var(--bg) var(--bgimg,none) no-repeat fixed}
 <div class="toast" id="toast" role="status" hidden><span id="tmsg"></span><button id="undo">Undo</button></div>
 
 <script>
-var DEF={e:['Food','Fare','Lunch','Data/Airtime','Clothes'],i:['Imara DSB','Salary','Side job','Gift']};
+var DEF={e:['Food','Fare','Lunch','Data/Airtime','Clothes'],i:['Salary','Business','Side job','Gift']};
 var S={inc:[],items:[],adj:[]},ym=new Date().toISOString().slice(0,7),mode='e',sel={e:null,i:null},view='track',rng='m',ed=null,undoFn=null,tt=0;
 var $=function(i){return document.getElementById(i)};
 function save(){try{localStorage.setItem('exp-tracker-v1',JSON.stringify(S))}catch(e){}}
@@ -245,7 +285,7 @@ function before(a){return a.filter(function(x){return x.d.slice(0,7)<ym})}
 function wkStart(){var d=new Date(),k=(d.getDay()+6)%7;return iso(k)}
 function group(a){var o={};a.forEach(function(x){o[x.c]=(o[x.c]||0)+x.a});return o}
 
-var IK={Food:'🍽️',Fare:'🚌',Lunch:'🍱','Data/Airtime':'📱',Clothes:'👕',Rent:'🏠',Fuliza:'💳','Hair/Salon':'💇',Shopping:'🛍️',Utilities:'💡',Savings:'💰',Other:'➕','Imara DSB':'🏗️',Salary:'💼','Side income':'💵','Side job':'💵','Money in':'💵',Income:'💵',Gift:'🎁'};
+var IK={Food:'🍽️',Fare:'🚌',Lunch:'🍱','Data/Airtime':'📱',Clothes:'👕',Rent:'🏠',Fuliza:'💳','Hair/Salon':'💇',Shopping:'🛍️',Utilities:'💡',Savings:'💰',Other:'➕',Business:'🏢','Imara DSB':'🏗️',Salary:'💼','Side income':'💵','Side job':'💵','Money in':'💵',Income:'💵',Gift:'🎁'};
 var EM=[[/parrot|bird|budgie|canary/,'🦜'],[/dog|puppy/,'🐶'],[/\bcats?\b|kitten/,'🐱'],[/\bpets?\b|\bvet\b/,'🐾'],[/chicken|poultry|egg/,'🐔'],[/cow|cattle|livestock|dairy|milk/,'🐄'],[/goat|sheep/,'🐐'],[/pig/,'🐖'],[/horse/,'🐴'],[/rabbit/,'🐰'],[/fish/,'🐟'],[/boat|ship|ferry|canoe|\bsea\b|ocean/,'⛵'],[/airtime|data|bundle|safaricom|phone|mobile|credo/,'📱'],[/wifi|internet|router/,'📶'],[/tv|dstv|netflix|showmax|movie|cinema/,'📺'],[/music|spotify|song/,'🎵'],[/game|gaming|playstation|xbox/,'🎮'],[/tea\b|coffee|cafe/,'☕'],[/beer|bar\b|pub|alcohol|wine|drink|soda|juice/,'🍺'],[/lunch|dinner|snack|restaurant|takeaway|chips/,'🍱'],[/breakfast|food|eat|meal|nyama|meat/,'🍽️'],[/fruit|veg|vegetable|sukuma|tomato/,'🥬'],[/bread|bakery|cake/,'🍞'],[/grocer|supermarket|market|mama mboga/,'🛒'],[/shop|mall|store/,'🛍️'],[/cloth|shoe|dress|shirt|suit|fashion/,'👕'],[/hair|salon|barber|kinyozi|beauty|makeup/,'💇'],[/health|insur|nhif|sha\b/,'🩺'],[/med|pharm|clinic|hospital|doctor|dental|drug/,'💊'],[/gym|fitness|sport|football|run/,'🏋️'],[/church|tithe|offering|sadaka|mosque|donat|charity/,'⛪'],[/school|fees|tuition|class|college|uni\b|course/,'🎓'],[/book|library|stationery|pen\b/,'📚'],[/baby|diaper|nappy|kid|child|toy/,'🧸'],[/gift|present|birthday|wedding|party|mum|dad|family|send|parent|wife|husband|girlfriend|boyfriend/,'🎁'],[/water/,'💧'],[/power|electric|token|kplc|light|utilit/,'💡'],[/gas\b|cooking gas|lpg/,'🔥'],[/fuel|petrol|diesel|gas station/,'⛽'],[/fare|matatu|boda|taxi|uber|bolt|bus\b|transport|travel|trip|train|sgr|flight|plane/,'🚌'],[/car\b|vehicle|garage|tyre|tire|parking|service/,'🚗'],[/bike|bicycle/,'🚲'],[/tool|repair|fundi|hardware|plumb|fix/,'🔧'],[/farm|seed|crop|shamba|fertili|plant|garden/,'🌱'],[/rent|house|home|landlord|mortgage|furniture/,'🏠'],[/loan|debt|fuliza|credit|mshwari|kcb|owe/,'💳'],[/sav|chama|invest|stock|sacco|shares|deposit/,'💰'],[/salary|wage|pay\b|payroll|job|work|office/,'💼'],[/tax|kra|licen[cs]e|permit|fine|legal|court/,'🧾'],[/imara|build|construct|site|cement|material/,'🏗️'],[/laptop|computer|software|app\b|subscription|tech|gadget|charger/,'💻'],[/holiday|vacation|hotel|safari|airbnb/,'🏖️'],[/camera|photo/,'📷'],[/cleaning|soap|detergent|laundry/,'🧼']];
 function ic(c){var s=(S.ic&&S.ic[c])||IK[c],m;
   if(!s){m=String(c).match(/^\s*(\p{Extended_Pictographic}(?:\uFE0F|\u200D\p{Extended_Pictographic}|\uFE0F)*)/u);if(m)s=m[1]}
@@ -292,7 +332,6 @@ function renderTrack(){
     return '<section class="dc"><div class="day"><span>'+lab+' · '+full+'</span><span class="num">'+(sp?fmt(sp):'')+'</span></div>'+days[d].map(function(x){
       return '<div class="r" data-id="'+x.id+'" data-t="'+x.t+'"><span class="c">'+esc(x.c)+(x.n&&x.c.toLowerCase().indexOf(String(x.n).toLowerCase())<0?'<em>'+esc(x.n)+'</em>':'')+'</span><span class="num'+(x.t==='i'?' plus':'')+'">'+(x.t==='i'?'+':'')+fmt(x.a)+'</span><button data-id="'+x.id+'" aria-label="Delete">×</button></div>'}).join('')+'</section>'}).join(''):
     '<p class="empty">'+(S.inc.length||S.items.length?'Nothing here yet. Tap a category, type the amount and press Save.':'Start with the Income tab above: add what you have, then log each spend.')+'</p>';
-  $('seed').hidden=!!(S.items.length||S.inc.length>1);
   chipsRender();dayBtns();
 }
 var ap='m';
@@ -395,11 +434,6 @@ $('list').onclick=function(e){var r=e.target.closest('.r');if(!r)return;
   var x=L.splice(i,1)[0];if(ed&&ed.id===id)endEdit();save();toast('Deleted',function(){L.splice(i,0,x)});render()};
 $('prev').onclick=function(){ym=mk(-1);rng='m';pressed($('rng'),'data-r','m');render()};
 $('next').onclick=function(){ym=mk(1);rng='m';pressed($('rng'),'data-r','m');render()};
-$('seed').onclick=function(){
-  var D=[[13,'Food',30],[13,'Fare',190],[14,'Fare',190],[14,'Food',180],[14,'Lunch',55],[15,'Fare',190],[15,'Lunch',40],[15,'Food',540],[16,'Data/Airtime',40],[17,'Data/Airtime',30],[18,'Food',140],[18,'Data/Airtime',40],[19,'Fare',240],[19,'Other',60,'Mercy'],[19,'Clothes',250],[19,'Food',230],[19,'Hair/Salon',375],[19,'Data/Airtime',100],[20,'Hair/Salon',1050],[20,'Other',50,'Tokens'],[20,'Data/Airtime',20],[20,'Food',100],[21,'Fare',220],[21,'Lunch',80],[21,'Food',60],[22,'Fare',230],[22,'Food',220],[23,'Fare',400],[23,'Food',180],[23,'Data/Airtime',20],[24,'Food',80],[24,'Clothes',150],[24,'Food',825]];
-  D.forEach(function(r,i){S.items.push({id:'s'+i,d:'2026-09-'+String(r[0]).padStart(2,'0'),c:r[1],a:r[2],n:r[3]||''})});
-  S.inc.push({id:'si',d:'2026-09-01',c:'Money in',a:22500,n:'Monthly budget'});
-  ym='2026-09';rng='m';pressed($('rng'),'data-r','m');save();render()};
 function toCsv(){var q=function(v){v=String(v==null?'':v);return /[",\n\r]/.test(v)?'"'+v.replace(/"/g,'""')+'"':v},L=[['type','date','category','amount','note','received']];
   S.items.forEach(function(x){L.push(['expense',x.d,x.c,x.a,x.n||'',''])});
   S.inc.forEach(function(x){L.push(['income',x.d,x.c,x.a,x.n||'',x.got===false?'no':'yes'])});
@@ -431,6 +465,27 @@ $('imp').onclick=function(){$('impf').click()};
 $('impf').onchange=function(){var f=this.files[0];if(!f)return;var r=new FileReader();r.onload=function(){try{var p=r.result.trim().charAt(0)==='{'?JSON.parse(r.result):fromCsv(r.result);if(p&&p.items&&p.inc){S=p;if(!S.adj)S.adj=[];save();render();toast('Backup restored',null)}else toast('That file isn’t a backup',null)}catch(e){toast('Couldn’t read that file',null)}};r.readAsText(f);this.value=''};
 if('serviceWorker' in navigator)addEventListener('load',function(){navigator.serviceWorker.register('./sw.js').catch(function(){})});
 try{if(navigator.storage&&navigator.storage.persist)navigator.storage.persist()}catch(e){}
+function fld(el){
+  if(el.contentEditable!=='plaintext-only')el.contentEditable='true';
+  Object.defineProperty(el,'value',{get:function(){return el.textContent.replace(/\u00a0/g,' ')},set:function(v){el.textContent=v}});
+  Object.defineProperty(el,'placeholder',{get:function(){return el.getAttribute('data-ph')||''},set:function(v){el.setAttribute('data-ph',v)}});
+  Object.defineProperty(el,'selectionStart',{get:function(){var s=getSelection();if(!s.rangeCount||!el.contains(s.anchorNode))return el.textContent.length;var r=s.getRangeAt(0);return r.startContainer.nodeType===3?r.startOffset:(r.startOffset?el.textContent.length:0)}});
+  el.setSelectionRange=function(a,b){var t=el.firstChild;if(!t||t.nodeType!==3)return;var r=document.createRange();r.setStart(t,Math.min(a,t.length));r.setEnd(t,Math.min(b,t.length));var s=getSelection();s.removeAllRanges();s.addRange(r)};
+  el.select=function(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r)};
+  el.addEventListener('keydown',function(e){if(e.key==='Enter')e.preventDefault()});
+  el.addEventListener('input',function(){if(!el.textContent)el.innerHTML=''});
+}
+['adjv','oth','amt'].forEach(function(i){fld($(i))});
+(function(){var fh=false,skip=false,isF=function(a){return !!(a&&a.classList&&a.classList.contains('fld'))};
+  document.addEventListener('focusin',function(e){if(isF(e.target)&&!fh){fh=true;try{history.pushState({fld:1},'')}catch(x){}}});
+  document.addEventListener('focusout',function(){setTimeout(function(){if(fh&&!isF(document.activeElement)){fh=false;skip=true;try{history.back()}catch(x){skip=false}}},0)});
+  addEventListener('popstate',function(){if(skip){skip=false;return}if(fh){fh=false;blurNow()}});
+  /* Android back swipe hides the keyboard first but leaves the field focused: blur when the keyboard closes */
+  var vv=window.visualViewport,H=function(){return vv?vv.height:innerHeight},base=H(),kb=false;
+  var chk=function(){var h=H();if(h>base)base=h;if(base-h>120){kb=true}else if(kb){kb=false;if(isF(document.activeElement))blurNow()}};
+  if(vv)vv.addEventListener('resize',chk);addEventListener('resize',chk);
+  document.addEventListener('focusin',function(){setTimeout(function(){base=Math.max(base,H())},0)});
+})();
 $('date').value=today();
 load();render();
 </script>
